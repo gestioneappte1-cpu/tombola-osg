@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tombola · Official Summer Games</title>
+<link rel="icon" href="/favicon.png">
+<meta name="theme-color" content="#214d4b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,700;1,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/" id="homeLink"><img src="/mark.png" alt="OSG" class="mark"><div><h1>Tombola</h1><small>Official Summer Games</small></div></a>
+</header>
+<main>
+
+<section id="lobby">
+  <div class="hero"><img src="/logo.png" alt="Official Summer Games" class="heroLogo"><h2 class="heroTitle">La tombola, tutti collegati</h2></div>
+  <div class="lobby">
+    <div class="panel">
+      <h2>Entra in una partita</h2>
+      <label for="jCode">Codice partita</label>
+      <input id="jCode" maxlength="4" autocomplete="off" placeholder="es. K7QF" class="codeInput">
+      <label for="jName">Il tuo nome</label>
+      <input id="jName" maxlength="24" placeholder="es. Giulia">
+      <label>Quante cartelle?</label>
+      <div class="seg" id="jCount"></div>
+      <button class="btn primary" id="jGo">Entra e gioca</button>
+    </div>
+    <div class="panel hostP">
+      <h2>Fai il banditore</h2>
+      <p class="note" style="margin-top:0">Crea la partita, estrai i numeri e dai il codice agli altri.</p>
+      <label for="hName">Il tuo nome</label>
+      <input id="hName" maxlength="24" placeholder="es. Matteo">
+      <label>Cartelle per te (se giochi anche tu)</label>
+      <div class="seg" id="hCount"></div>
+      <button class="btn aqua" id="hGo">Crea partita</button>
+      <p class="note" id="hostNote"></p>
+    </div>
+    <div class="panel resume" id="resumePanel" hidden></div>
+  </div>
+</section>
+
+<section id="game" hidden>
+  <div class="gbar">
+    <div class="codechip">Partita <b id="gCode"></b></div>
+    <span id="gRole" class="pill"></span>
+    <span id="gOnline" class="pill soft"></span>
+    <span class="spacer"></span>
+    <button id="voiceBtn" class="btn ghost sm" hidden>🔈 Voce</button>
+    <button id="leaveBtn" class="btn ghost sm">Esci</button>
+  </div>
+  <div id="gMsg" class="msg" hidden></div>
+  <div class="layout">
+    <div class="col">
+      <div class="panel lastPanel">
+        <div class="ball" id="ball"><span id="ballNum">?</span></div>
+        <div class="lastInfo">
+          <div class="smorfia" id="smorfia">Collegamento…</div>
+          <div class="count" id="count"></div>
+          <div class="prev" id="prev"></div>
+        </div>
+      </div>
+
+      <div class="panel" id="hostCtl" hidden>
+        <div class="ctlRow"><button id="drawBtn" class="btn primary big">Estrai numero</button></div>
+        <div class="ctlRow">
+          <label class="tog"><input type="checkbox" id="autoChk"> Automatica ogni
+            <select id="autoSec"><option>5</option><option selected>8</option><option>12</option><option>20</option></select> s</label>
+        </div>
+        <div class="ctlRow">
+          <button id="undoBtn" class="btn ghost sm">Annulla ultimo numero</button>
+          <button id="newBtn" class="btn ghost sm">Nuova partita</button>
+        </div>
+        <div id="confirmNew" class="confirm" hidden>
+          Ricominciare da zero? Numeri estratti e premi verranno azzerati per tutti.
+          <div class="ctlRow"><button id="newYes" class="btn primary sm">Sì, ricomincia</button><button id="newNo" class="btn ghost sm">Annulla</button></div>
+        </div>
+        <div class="share">
+          Codice per i giocatori: <b id="shareCode"></b><br>
+          <span class="shareLink" id="shareLink"></span>
+          <button id="copyBtn" class="btn ghost sm">Copia link</button>
+        </div>
+      </div>
+
+      <div id="banner" class="banner" hidden></div>
+
+      <div id="cardsWrap">
+        <div class="secHead"><h3>Le tue cartelle</h3><button id="rerollBtn" class="btn ghost sm" hidden>Cambia cartelle</button></div>
+        <div id="cards" class="cards"></div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="panel"><h3>Premi</h3><div id="prizes" class="prizes"></div></div>
+      <div class="panel"><h3>Tabellone</h3><div id="board" class="board"></div></div>
+      <div class="panel"><h3>Giocatori</h3><div id="people" class="people"></div></div>
+      <div class="panel" id="verifyPanel" hidden>
+        <h3>Verifica una cartella</h3>
+        <p class="note">I premi si assegnano da soli. Se serve, puoi controllare una cartella dal suo codice e assegnare il premio a mano.</p>
+        <div class="vrow"><input id="vCode" maxlength="5" placeholder="Codice" autocomplete="off" class="codeInput"><input id="vName" maxlength="24" placeholder="Nome"></div>
+        <div id="vOut" class="vres"></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<div id="toast"></div>
+<script type="module" src="/app.js"></script>
+</body>
+</html>
